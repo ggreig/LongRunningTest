@@ -18,7 +18,13 @@ namespace LongRunning.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets randomly assigned weather forecasts for the next five days.
+        /// </summary>
+        /// <response code="200">Returns the weather forecast for the next five days.</response>
+        /// <remarks>API temporarily left in place as an example.</remarks>
         [HttpGet(Name = "GetWeatherForecast")]
+        [Produces("application/json")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
