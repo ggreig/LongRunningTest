@@ -1,0 +1,6 @@
+@LongRunning_HostAddress = http://localhost:5074
+
+GET {{LongRunning_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
