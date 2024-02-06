@@ -1,23 +1,21 @@
 namespace LongRunningWorkerService
 {
-    public class LongRunningWorker : BackgroundService
+    public class LongRunningWorker(ILogger<LongRunningWorker> inLogger) : BackgroundService
     {
-        private readonly ILogger<LongRunningWorker> _logger;
+        private const int MillisecondsPerSecond = 1000;
 
-        public LongRunningWorker(ILogger<LongRunningWorker> logger)
+        protected override async Task ExecuteAsync(CancellationToken inStoppingToken)
         {
-            _logger = logger;
-        }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            while (!stoppingToken.IsCancellationRequested)
+            while (!inStoppingToken.IsCancellationRequested)
             {
-                if (_logger.IsEnabled(LogLevel.Information))
+                if (inLogger.IsEnabled(LogLevel.Information))
                 {
-                    _logger.LogInformation("LongRunningWorker running at: {time}", DateTimeOffset.Now);
+                    inLogger.LogInformation("LongRunningWorker running at: {time}", DateTimeOffset.Now);
                 }
-                await Task.Delay(1000, stoppingToken);
+
+                const int seconds = 1;
+                const int duration = seconds * MillisecondsPerSecond;
+                await Task.Delay(duration, inStoppingToken);
             }
         }
     }
