@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  longrunning:
+    image: ${DOCKER_REGISTRY-}longrunning
+    build:
+      context: .
+      dockerfile: LongRunning/Dockerfile
+     
+  longrunningworkerservice:
+    image: ${DOCKER_REGISTRY-}longrunningworkerservice
+    build:
+      context: .
+      dockerfile: LongRunningWorkerService/Dockerfile

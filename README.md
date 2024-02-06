@@ -16,7 +16,7 @@ Although working out some of the details took some time, I think it paid off rea
 
 Then I focussed on the Worker Service thinking I could set it up initially as a project dependency
 using DI in the API project, then separate it out; I started with the template Worker Service and
-got it running in Docker, then through DI from the API project.
+got it running in Docker, then through DI from the API project (later removing the Docker support).
 
 Having done that I tried to work out solutions from examples in Microsoft documentation 
 (scoped services, queue services). I think that was my biggest mistake; I expect the sensible 
