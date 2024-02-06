@@ -1,7 +1,22 @@
+using App.QueueService;
 using LongRunningWorkerService;
 
-var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<LongRunningWorker>();
+var theBuilder = Host.CreateApplicationBuilder(args);
+theBuilder.Services.AddSingleton<MonitorLoop>();
+theBuilder.Services.AddHostedService<QueuedHostedService>();
+theBuilder.Services.AddSingleton<IBackgroundTaskQueue>(_ =>
+{
+    if (!int.TryParse(theBuilder.Configuration["QueueCapacity"], out var theQueueCapacity))
+    {
+        theQueueCapacity = 100;
+    }
 
-var host = builder.Build();
-host.Run();
+    return new DefaultBackgroundTaskQueue(theQueueCapacity);
+});
+
+var theHost = theBuilder.Build();
+
+MonitorLoop theMonitorLoop = theHost.Services.GetRequiredService<MonitorLoop>()!;
+theMonitorLoop.StartMonitorLoop();
+
+theHost.Run();
