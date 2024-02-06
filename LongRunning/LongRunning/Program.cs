@@ -36,7 +36,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 // Add long-running service
-builder.Services.AddHostedService<Worker>();
+builder.Services.AddHostedService<LongRunningWorker>();
 
 var app = builder.Build();
 

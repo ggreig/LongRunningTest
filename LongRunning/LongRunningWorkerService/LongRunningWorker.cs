@@ -1,10 +1,10 @@
 namespace LongRunningWorkerService
 {
-    public class Worker : BackgroundService
+    public class LongRunningWorker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
+        private readonly ILogger<LongRunningWorker> _logger;
 
-        public Worker(ILogger<Worker> logger)
+        public LongRunningWorker(ILogger<LongRunningWorker> logger)
         {
             _logger = logger;
         }
@@ -15,7 +15,7 @@ namespace LongRunningWorkerService
             {
                 if (_logger.IsEnabled(LogLevel.Information))
                 {
-                    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                    _logger.LogInformation("LongRunningWorker running at: {time}", DateTimeOffset.Now);
                 }
                 await Task.Delay(1000, stoppingToken);
             }
